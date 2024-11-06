@@ -3,6 +3,7 @@ from tetris_shapes import TetriminoFactory
 from observer import ScoreObserver
 from strategy import KeyboardInput
 
+
 class Game:
     _instance = None
 
@@ -13,17 +14,23 @@ class Game:
 
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.screen = pygame.display.set_mode((300, 600))
         self.clock = pygame.time.Clock()
         self.board = [[0 for _ in range(10)] for _ in range(20)]
         self.tetrimino = TetriminoFactory.create_tetrimino()  
         self.fall_speed = 500
+        self.level = 1
         self.last_move_time = pygame.time.get_ticks()
         self.score = 0
         self.score_observer = ScoreObserver()
         self.is_game_over = False
-
+        self.play_background_music()
         self.input_strategy = KeyboardInput()
+    def play_background_music(self):
+        pygame.mixer.music.load("src/Tetris.mp3")  
+        pygame.mixer.music.set_volume(0.5)  
+        pygame.mixer.music.play(-1, 0.0)  
 
     def run(self):
         while True:
@@ -53,7 +60,15 @@ class Game:
                 self.restart_game()
 
     def update(self):
-        if pygame.time.get_ticks() - self.last_move_time > self.fall_speed:
+        current_time = pygame.time.get_ticks()
+        elapsed_time = current_time - self.last_move_time
+
+        if elapsed_time > 10000:  
+            self.last_move_time = current_time
+            self.level += 6
+            self.fall_speed = max(100, 500 - (self.level * 30))  
+
+        if current_time - self.last_move_time > self.fall_speed:
             if not self.move_tetrimino(0, 1):
                 self.merge_tetrimino()
                 self.clear_full_lines()
