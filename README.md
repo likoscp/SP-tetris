@@ -30,5 +30,5 @@ Here's an overview of the main files in this project:
 - **requirements.txt**: Lists required Python packages, mainly PyGame.
 
 ## Author
-This project was created by Sabina, Darina, Danel as a practice project to learn Python game development and design patterns. 
+This project was created by Sabina, Darina, Akniyet as a practice project to learn Python game development and design patterns. 
 
