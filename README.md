@@ -2,10 +2,7 @@
 
 # Tetris Game 🎮
 
-A classic Tetris game implemented in Python with PyGame. This project demonstrates clean code structure and usage of design patterns.
-
-## 📖 What is Tetris?
-Tetris is a popular puzzle video game originally designed and programmed by Alexey Pajitnov in 1984. The objective is to manipulate falling blocks, known as Tetriminos, by moving and rotating them to create complete horizontal lines on the playfield. When a line is completed, it disappears, and the player earns points. The game ends when the blocks reach the top of the playfield.
+A classic Tetris game implemented in Python with PyGame. This project demonstrates clean code structure and usage of design patterns. We have created a classic Tetris game, where the player controls falling tetrominoes and clears lines to earn points. The game features the core mechanics of Tetris, a real-time scoreboard, and smooth gameplay.
 
 ## 🎮 How to Play
 - **Goal**: Complete lines by correctly placing the Tetriminos. The more lines you complete, the higher your score.
@@ -14,7 +11,7 @@ Tetris is a popular puzzle video game originally designed and programmed by Alex
   - **Right Arrow**: Move Tetrimino right
   - **Up Arrow**: Rotate Tetrimino
   - **Down Arrow**: Speed up Tetrimino drop
-  - **P**: Pause/Resume game
+  - **Enter**: Restart
 
 ## 📁 Project Structure
 Here's an overview of the main files in this project:
