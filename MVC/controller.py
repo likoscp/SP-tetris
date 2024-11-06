@@ -1,8 +1,9 @@
 import pygame
-from model import TetriminoFactory
+from MVC.model import TetriminoFactory
 from observer import ScoreObserver
+from observer import GameObserver
 from strategy import KeyboardInput
-from view import View
+from MVC.view import View
 
 class Controller:
     _instance = None
@@ -24,6 +25,7 @@ class Controller:
         self.last_move_time = pygame.time.get_ticks()
         self.score = 0
         self.score_observer = ScoreObserver()
+        self.game_observer = GameObserver()
         self.is_game_over = False
         self.view = View(self.screen)
         self.play_background_music()
@@ -78,6 +80,7 @@ class Controller:
             self.last_move_time = pygame.time.get_ticks()
             if any(self.board[0][x] != 0 for x in range(10)):  
                 self.is_game_over = True  
+                self.game_observer.update(self.is_game_over)
 
     def move_tetrimino(self, dx, dy):
         if self.check_collision(dx, dy):
@@ -135,6 +138,7 @@ class Controller:
         elif lines_cleared == 4:
             self.score += base_score * 4 * 2
         self.score_observer.update(self.score)
+        
 
     def draw(self):
         self.screen.fill((0, 0, 0))
@@ -144,6 +148,8 @@ class Controller:
         self.view.draw_restart_instruction() 
         if self.is_game_over:
             self.view.draw_game_over() 
+        
+            
         pygame.display.flip()
 
     def restart_game(self):
