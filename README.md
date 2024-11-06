@@ -17,13 +17,16 @@ A classic Tetris game implemented in Python with PyGame. This project demonstrat
 Here's an overview of the main files in this project:
 
 ### File Descriptions
+### MVC Architecture
+- **controller.py**:Defines the Controller class, which acts as the intermediary between the model and the view. It handles game logic, user input, score tracking, and rendering using pygame.
+- **model.py**:Contains the game's core logic, including the TetriminoFactory and the Game class for managing the game state, tetrimino creation, board handling, and line clearing.
+- **view.py** : Manages the rendering of the game, including the game board, tetriminoes, score, game over screen, and restart instructions.
+
+### Additional Files
 - **main.py**: Contains the main function to initialize and start the game.
-- **game.py**: Defines the Game class and includes the primary game loop for the Tetris game.
-- **observer.py**: Implements the Observer and ScoreObserver classes. The ScoreObserver updates and displays the score when it changes.
+- **observer.py**: Implements the Observer and ScoreObserver classes. The ScoreObserver listens for score changes and updates the score display.
 - **factory.py**: Contains the TetriminoFactory class that creates new Tetrimino instances for the game.
-- **view.py** Contains the View class that manages the rendering of the game board, score, game over screen, and tetrimino.
-- **controller.py**:Defines the Controller class for a Tetris game, handling game logic, user input, score tracking, and rendering using pygame.
-- **strategy.py**:Implements the Strategy Pattern, allowing the game to switch between different methods of player input (e.g., keyboard input). 
+- **strategy.py**:Implements the Strategy Pattern to handle different methods of player input. The KeyboardInput class is used to read player input from the keyboard.
 - **README.md**: Documentation for the project.
 
 ## Author
