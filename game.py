@@ -21,6 +21,7 @@ class Game:
         self.last_move_time = pygame.time.get_ticks()
         self.score = 0
         self.score_observer = ScoreObserver()
+        self.is_game_over = False
 
         self.input_strategy = KeyboardInput()
 
@@ -58,6 +59,8 @@ class Game:
                 self.clear_full_lines()
                 self.tetrimino = TetriminoFactory.create_tetrimino()  
             self.last_move_time = pygame.time.get_ticks()
+            if any(self.board[0][x] != 0 for x in range(10)):  
+                self.is_game_over = True  
 
     def move_tetrimino(self, dx, dy):
         if self.check_collision(dx, dy):
@@ -122,7 +125,10 @@ class Game:
         self.tetrimino.draw(self.screen)
         self.draw_score()  
         self.draw_restart_instruction()
+        if self.is_game_over:
+            self.draw_game_over()
         pygame.display.flip()
+
 
     def draw_board(self):
         for y in range(len(self.board)):
@@ -136,6 +142,10 @@ class Game:
         score_surface = font.render(f'Score: {self.score}', True, (255, 255, 255))
         self.screen.blit(score_surface, (10, 10))
         
+    def draw_game_over(self):
+        font = pygame.font.Font(None, 50)
+        game_over_text = font.render(f'GAME OVER', True, (255, 255, 255))
+        self.screen.blit(game_over_text, (50, 250))
 
     def draw_restart_instruction(self):
         font = pygame.font.Font(None, 30)
