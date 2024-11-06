@@ -21,6 +21,7 @@ Here's an overview of the main files in this project:
 - **game.py**: Defines the `Game` class and includes the primary game loop.
 - **observer.py**: Implements `Observer` and `ScoreObserver` classes to update and display the score.
 - **factory.py**: Contains the `TetriminoFactory` class for creating Tetrimino instances.
+- **controller.py**:Defines the Controller class for a Tetris game, handling game logic, user input, score tracking, and rendering using pygame.
 - **strategy.py**:The Strategy Pattern is used to handle different methods of player input, allowing the game to easily switch between various input strategies 
 - **README.md**: Documentation for the project.
 
