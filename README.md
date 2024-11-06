@@ -19,12 +19,10 @@ Here's an overview of the main files in this project:
 ### File Descriptions
 - **main.py**: Contains the main function to initialize and start the game.
 - **game.py**: Defines the `Game` class and includes the primary game loop.
-- **tetrimino.py**: Contains the `Tetrimino` class with configurations for different shapes and colors.
-- **input_strategy.py**: Defines `InputStrategy` and `KeyboardInput` classes, allowing flexible input handling.
 - **observer.py**: Implements `Observer` and `ScoreObserver` classes to update and display the score.
 - **factory.py**: Contains the `TetriminoFactory` class for creating Tetrimino instances.
+- **strategy.py**:The Strategy Pattern is used to handle different methods of player input, allowing the game to easily switch between various input strategies 
 - **README.md**: Documentation for the project.
-- **requirements.txt**: Lists required Python packages, mainly PyGame.
 
 ## Author
 This project was created by Sabina, Darina, Akniyet as a practice project to learn Python game development and design patterns. 
