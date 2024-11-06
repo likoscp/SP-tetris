@@ -19,15 +19,15 @@ Tetris is a popular puzzle video game originally designed and programmed by Alex
 ## 📁 Project Structure
 Here's an overview of the main files in this project:
 
-tetris-game/
-├── main.py                # Entry point to start the game
-├── game.py                # Core game logic and main loop
-├── tetrimino.py           # Tetrimino class with shape and color definitions
-├── input_strategy.py      # Implements Strategy pattern for input handling
-├── observer.py            # Implements Observer pattern for score updates
-├── factory.py             # Implements Factory pattern for creating Tetriminos
-├── README.md              # Project documentation
-└── requirements.txt       # List of dependencies
+### File Descriptions
+- **main.py**: Contains the main function to initialize and start the game.
+- **game.py**: Defines the `Game` class and includes the primary game loop.
+- **tetrimino.py**: Contains the `Tetrimino` class with configurations for different shapes and colors.
+- **input_strategy.py**: Defines `InputStrategy` and `KeyboardInput` classes, allowing flexible input handling.
+- **observer.py**: Implements `Observer` and `ScoreObserver` classes to update and display the score.
+- **factory.py**: Contains the `TetriminoFactory` class for creating Tetrimino instances.
+- **README.md**: Documentation for the project.
+- **requirements.txt**: Lists required Python packages, mainly PyGame.
 
 ## Author
 This project was created by Sabina, Darina, Danel as a practice project to learn Python game development and design patterns. 
