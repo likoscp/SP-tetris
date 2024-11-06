@@ -48,6 +48,8 @@ class Game:
                 self.rotate_tetrimino()
             elif keys[pygame.K_SPACE]:
                 self.move_tetrimino_to_bottom()
+            elif keys[pygame.K_RETURN]:
+                self.restart_game()
 
     def update(self):
         if pygame.time.get_ticks() - self.last_move_time > self.fall_speed:
@@ -119,6 +121,7 @@ class Game:
         self.draw_board()
         self.tetrimino.draw(self.screen)
         self.draw_score()  
+        self.draw_restart_instruction()
         pygame.display.flip()
 
     def draw_board(self):
@@ -132,3 +135,15 @@ class Game:
         font = pygame.font.Font(None, 36)
         score_surface = font.render(f'Score: {self.score}', True, (255, 255, 255))
         self.screen.blit(score_surface, (10, 10))
+        
+
+    def draw_restart_instruction(self):
+        font = pygame.font.Font(None, 30)
+        restart_text = font.render(f'Press ENTER to Restart', True, (255, 255, 255))
+        self.screen.blit(restart_text, (10, 40))
+
+    def restart_game(self):
+        self.board = [[0 for _ in range(10)] for _ in range(20)]
+        self.tetrimino = TetriminoFactory.create_tetrimino()  
+        self.score = 0
+        self.is_game_over = False
