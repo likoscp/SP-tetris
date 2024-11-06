@@ -5,7 +5,7 @@ pip install pygame
 2.	Running the Game: Execute the main script to start Tetris.
 python main.py
 
-#3.	Controls:
+# 3.	Controls:
 •	Left Arrow: Move Tetrimino left
 •	Right Arrow: Move Tetrimino right
 •	Up Arrow: Rotate Tetrimino
