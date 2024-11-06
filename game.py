@@ -2,6 +2,13 @@ import pygame
 from tetris_shapes import Tetrimino
 
 class Game:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Game, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((300, 600))
@@ -33,6 +40,8 @@ class Game:
                     self.move_tetrimino(0, 1)
                 elif event.key == pygame.K_UP:
                     self.rotate_tetrimino()
+                elif event.key == pygame.K_SPACE:
+                    self.move_tetrimino_to_bottom()
 
     def update(self):
         if pygame.time.get_ticks() - self.last_move_time > self.fall_speed:
@@ -53,6 +62,10 @@ class Game:
         self.tetrimino.rotate()
         if not self.check_collision(0, 0):
             self.tetrimino.shape = original_shape
+    def move_tetrimino_to_bottom(self):
+        while self.check_collision(0, 1): 
+            self.tetrimino.move(0, 1)  
+
 
     def check_collision(self, dx, dy):
         for i, row in enumerate(self.tetrimino.shape):

@@ -2,6 +2,7 @@ import random
 import pygame
 
 class Tetrimino:
+    
     SHAPES = [
         {'shape': [[1, 1, 1, 1]], 'color': (0, 255, 255)},  
         {'shape': [[1, 1, 1], [0, 1, 0]], 'color': (128, 0, 128)},  
@@ -32,3 +33,7 @@ class Tetrimino:
                     pygame.draw.rect(surface, self.color, 
                                      (self.position[0] * 30 + j * 30, 
                                       self.position[1] * 30 + i * 30, 30, 30))
+class TetriminoFactory:
+    @staticmethod
+    def create_tetrimino():
+        return Tetrimino()
