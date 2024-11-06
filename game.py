@@ -10,6 +10,7 @@ class Game:
         self.tetrimino = Tetrimino()
         self.fall_speed = 500
         self.last_move_time = pygame.time.get_ticks()
+        self.score = 0  
 
     def run(self):
         while True:
@@ -37,6 +38,7 @@ class Game:
         if pygame.time.get_ticks() - self.last_move_time > self.fall_speed:
             if not self.move_tetrimino(0, 1):
                 self.merge_tetrimino()
+                self.clear_full_lines()
                 self.tetrimino = Tetrimino()
             self.last_move_time = pygame.time.get_ticks()
 
@@ -72,10 +74,31 @@ class Game:
                     y = self.tetrimino.position[1] + i
                     self.board[y][x] = self.tetrimino.color
 
+    def clear_full_lines(self):
+        new_board = [row for row in self.board if any(block == 0 for block in row)]
+        lines_cleared = len(self.board) - len(new_board)
+        new_board = [[0 for _ in range(10)] for _ in range(lines_cleared)] + new_board
+        self.board = new_board
+        
+        if lines_cleared > 0:
+            self.calculate_score(lines_cleared)
+
+    def calculate_score(self, lines_cleared):
+        base_score = 10
+        if lines_cleared == 1:
+            self.score += base_score
+        elif lines_cleared == 2:
+            self.score += int(base_score * 2 * 1.2)
+        elif lines_cleared == 3:
+            self.score += int(base_score * 3 * 1.6)
+        elif lines_cleared == 4:
+            self.score += base_score * 4 * 2
+
     def draw(self):
         self.screen.fill((0, 0, 0))
         self.draw_board()
         self.tetrimino.draw(self.screen)
+        self.draw_score()  
         pygame.display.flip()
 
     def draw_board(self):
@@ -84,3 +107,8 @@ class Game:
                 if self.board[y][x] != 0:
                     pygame.draw.rect(self.screen, self.board[y][x], 
                                      (x * 30, y * 30, 30, 30))
+
+    def draw_score(self):
+        font = pygame.font.Font(None, 36)
+        score_surface = font.render(f'Score: {self.score}', True, (255, 255, 255))
+        self.screen.blit(score_surface, (10, 10))
