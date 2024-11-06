@@ -29,6 +29,9 @@ Here's an overview of the main files in this project:
 - **strategy.py**:Implements the Strategy Pattern to handle different methods of player input. The KeyboardInput class is used to read player input from the keyboard.
 - **README.md**: Documentation for the project.
 
+### SRC
+-  **tetris_mp3**: Background music file for the game, stored in the src folder.
+
 ## Author
 This project was created by Sabina, Darina, Akniyet as a practice project to learn Python game development and design patterns. 
 
