@@ -1,5 +1,7 @@
 import pygame
-from tetris_shapes import Tetrimino
+from tetris_shapes import TetriminoFactory
+from observer import ScoreObserver
+from strategy import KeyboardInput
 
 class Game:
     _instance = None
@@ -14,10 +16,13 @@ class Game:
         self.screen = pygame.display.set_mode((300, 600))
         self.clock = pygame.time.Clock()
         self.board = [[0 for _ in range(10)] for _ in range(20)]
-        self.tetrimino = Tetrimino()
+        self.tetrimino = TetriminoFactory.create_tetrimino()  
         self.fall_speed = 500
         self.last_move_time = pygame.time.get_ticks()
-        self.score = 0  
+        self.score = 0
+        self.score_observer = ScoreObserver()
+
+        self.input_strategy = KeyboardInput()
 
     def run(self):
         while True:
@@ -27,28 +32,29 @@ class Game:
             self.clock.tick(60)
 
     def handle_events(self):
+        keys = self.input_strategy.handle_input()  
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    self.move_tetrimino(-1, 0)
-                elif event.key == pygame.K_RIGHT:
-                    self.move_tetrimino(1, 0)
-                elif event.key == pygame.K_DOWN:
-                    self.move_tetrimino(0, 1)
-                elif event.key == pygame.K_UP:
-                    self.rotate_tetrimino()
-                elif event.key == pygame.K_SPACE:
-                    self.move_tetrimino_to_bottom()
+
+            if keys[pygame.K_LEFT]:
+                self.move_tetrimino(-1, 0)
+            elif keys[pygame.K_RIGHT]:
+                self.move_tetrimino(1, 0)
+            elif keys[pygame.K_DOWN]:
+                self.move_tetrimino(0, 1)
+            elif keys[pygame.K_UP]:
+                self.rotate_tetrimino()
+            elif keys[pygame.K_SPACE]:
+                self.move_tetrimino_to_bottom()
 
     def update(self):
         if pygame.time.get_ticks() - self.last_move_time > self.fall_speed:
             if not self.move_tetrimino(0, 1):
                 self.merge_tetrimino()
                 self.clear_full_lines()
-                self.tetrimino = Tetrimino()
+                self.tetrimino = TetriminoFactory.create_tetrimino()  
             self.last_move_time = pygame.time.get_ticks()
 
     def move_tetrimino(self, dx, dy):
@@ -62,10 +68,10 @@ class Game:
         self.tetrimino.rotate()
         if not self.check_collision(0, 0):
             self.tetrimino.shape = original_shape
+
     def move_tetrimino_to_bottom(self):
         while self.check_collision(0, 1): 
             self.tetrimino.move(0, 1)  
-
 
     def check_collision(self, dx, dy):
         for i, row in enumerate(self.tetrimino.shape):
@@ -106,6 +112,7 @@ class Game:
             self.score += int(base_score * 3 * 1.6)
         elif lines_cleared == 4:
             self.score += base_score * 4 * 2
+        self.score_observer.update(self.score)
 
     def draw(self):
         self.screen.fill((0, 0, 0))

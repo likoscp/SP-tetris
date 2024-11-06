@@ -1,4 +1,5 @@
 import pygame
+
 class InputStrategy:
     def handle_input(self):
         raise NotImplementedError()
@@ -6,3 +7,4 @@ class InputStrategy:
 class KeyboardInput(InputStrategy):
     def handle_input(self):
         keys = pygame.key.get_pressed()
+        return keys
